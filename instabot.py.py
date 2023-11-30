@@ -23,11 +23,11 @@ class InstaPy():
     ###Function is responsible for open browser and login with username and password.
     def login(self):
         self.login = "blazesienna" ### <--- Tu wprowadź login
-        self.password = "FKllWXA4CQ3vrBX" ### <--- Tu wprowadź hasło
+        self.password = "FKllWXA4CQ3vrBX!" ### <--- Tu wprowadź hasło
         self.driver.get("https://www.instagram.com/accounts/login/")
         time.sleep(5)
         #---> click to accept cookies.    
-        self.acceptbutton = self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
+        self.acceptbutton = self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
         time.sleep(2)
         self.acceptbutton.click()
         time.sleep(2)
@@ -107,7 +107,7 @@ class InstaPy():
         
         self.left = random.randint(1,3)
         self.left = str(self.left)
-        self.downIndex = random.randint(2,5)
+        self.downIndex = random.randint(1,2)
         self.downIndex = str(self.downIndex)
         self.photo = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div/div/div/div['+self.downIndex+']/div['+self.left+']/a')
         self.photo.click()
@@ -138,24 +138,30 @@ class InstaPy():
         self.like_button = self.driver.find_elements(By.CLASS_NAME,'xcdnw81')
         time.sleep(0.5)
         self.like_button[2].click()
-        self.comm = self.driver.find_elements(By.CLASS_NAME,'xcdnw81')
-        self.comm[13].click()
-        self.comm = self.driver.find_elements(By.CLASS_NAME,'x1ja2u2z')
+        self.sendif=random.randint(1,100)
         self.rand = random.randint(1,5)
         self.x=0
-        while self.x<self.rand:       
-            self.comm[21].click()
-            time.sleep(0.5)
-            self.x=self.x+1
-            
-        print("Zdjęcie polaikowane.")    
+        if self.sendif>90:
+            self.comm = self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[3]/div/form/div/div[1]/div')
+            self.comm.click()
+            time.sleep(2)
+            while self.x<self.rand:
+                self.emote = self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[4]/div/div/div[1]/div[1]/div/div/div/div/div/div/div/div[7]/div')      
+                self.emote.click()
+                time.sleep(0.5)
+                self.x=self.x+1
+            self.sent=self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[3]/div/form/div/div[2]/div')
+            self.sent.click()
+            print("Zdjęcie polaikowane i komentarz")
+        else:
+            print("Tylko like")
         
         
     ### ---> next_photo
     ### Function is responsible for click to next photo.  
     def next_photo(self):
         time.sleep(2)
-        self.next_photo_button = self.driver.find_element(By.CLASS_NAME,'_abl-')
+        self.next_photo_button = self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[3]/div/div/div/div/div[1]/div/div/div[2]/button')
         time.sleep(2)
         self.next_photo_button.click()
      
