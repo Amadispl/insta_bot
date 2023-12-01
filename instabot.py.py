@@ -27,20 +27,20 @@ class InstaPy():
         self.driver.get("https://www.instagram.com/accounts/login/")
         time.sleep(5)
         #---> click to accept cookies.    
-        self.acceptbutton = self.driver.find_element(By.XPATH,'/html/body/div[5]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
+        self.acceptbutton = self.driver.find_element(By.XPATH,'/html/body/div[6]/div[1]/div/div[2]/div/div/div/div/div[2]/div/button[1]')
         time.sleep(2)
         self.acceptbutton.click()
         time.sleep(2)
         ##---> end    
-        self.emailForm = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[1]/div/label/input')
+        self.emailForm = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[1]/div/label/input')
         self.emailForm.click()
         self.emailForm.send_keys(self.login)
         time.sleep(1)
-        self.passwordForm = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[2]/div/label/input')
+        self.passwordForm = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[2]/div/label/input')
         self.passwordForm.click()
         self.passwordForm.send_keys(self.password)
         time.sleep(1)
-        self.loginButton = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[3]/button')
+        self.loginButton = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div[1]/section/main/div/div/div[1]/div[2]/form/div/div[3]/button')
         time.sleep(1)
         self.loginButton.click()
         time.sleep(15)
@@ -99,18 +99,19 @@ class InstaPy():
         time.sleep(5)
         self.driver.execute_script("window.scrollTo(10," + self.rand + ")")
         print('current #', self.hashtags[self.hashtags_rand])
+        self.hashtags.pop(self.hashtags_rand)
         time.sleep(3)
     
     ### ---> open_photo
     ### Function is responsible for open random picture on website.     
     def open_photo(self): 
         
-        self.left = random.randint(1,3)
+        self.left = random.randint(1,2)
         self.left = str(self.left)
         self.downIndex = random.randint(1,2)
         self.downIndex = str(self.downIndex)
-        self.photo = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div/div[1]/div[1]/div[2]/section/main/article/div/div/div/div['+self.downIndex+']/div['+self.left+']/a')
-        self.photo.click()
+        self.photo = self.driver.find_element(By.XPATH,'/html/body/div[2]/div/div/div[2]/div/div/div[1]/div[1]/div[2]/section/main/article/div/div/div/div['+self.downIndex+']/div['+self.left+']/a')
+        self.photo.click()                    
         time.sleep(2)
         
         
@@ -171,7 +172,7 @@ class InstaPy():
     ### Function is responsible for pause.   
     def relax(self):
         
-        self.relax_time = random.randint(42,82)
+        self.relax_time = random.randint(600,900)
         print('InstaBotPy has stopped at this moment. The system will boot up in ', self.relax_time, ' seconds')
         time.sleep(self.relax_time)
         
@@ -183,11 +184,12 @@ class InstaPy():
         time.sleep(2)
         self.driver.get('https://www.instagram.com/explore/tags/' + self.hashtags[self.hashtags_rand] + '/' )
         print('# changed to # ' + self.hashtags[self.hashtags_rand])
+        self.hashtags.pop(self.hashtags_rand)
         time.sleep(5)
     
     def random_like(self):
         
-        self.amount = random.randint(10,20) # ammount like for # sesion.
+        self.amount = random.randint(20,22) # ammount like for # sesion.
         print('quantity like at this session - ', self.amount)
         
         
@@ -219,7 +221,10 @@ class InstaPy():
                 print("bład")      
             self.relax_after_like = random.randint(2,14)
             time.sleep(self.relax_after_like)
-            self.next_photo()
+            try:
+                self.next_photo()
+            except Exception:
+                self.change_hash()
             p_liked = p_liked + 1
 
 bot = InstaPy()
